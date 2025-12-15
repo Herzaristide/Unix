@@ -299,7 +299,7 @@ change_shell() {
         if [[ -n "$chsh_error" ]]; then
             print_info "Error: $chsh_error"
         fi
-        print_info "You can change it manually by running: chsh -s $(which zsh)"
+        print_info "You can change it manually by running: chsh -s \"$(which zsh)\""
     fi
 }
 
