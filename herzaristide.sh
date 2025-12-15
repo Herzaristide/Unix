@@ -274,6 +274,29 @@ configure_zsh() {
             exit 1
         fi
     fi
+    
+    # Copy custom theme
+    if [ -f "$SCRIPT_DIR/zsh/custom/themes/my-refined.zsh-theme" ]; then
+        print_info "Installing custom theme..."
+        mkdir -p "$ZSH_CUSTOM/themes"
+        cp "$SCRIPT_DIR/zsh/custom/themes/my-refined.zsh-theme" "$ZSH_CUSTOM/themes/my-refined.zsh-theme"
+        print_success "Custom theme configured"
+    else
+        # If running via curl, download the theme file
+        print_info "Downloading custom theme..."
+        mkdir -p "$ZSH_CUSTOM/themes"
+        if curl -fsSL "https://raw.githubusercontent.com/Herzaristide/Unix/main/zsh/custom/themes/my-refined.zsh-theme" -o "$ZSH_CUSTOM/themes/my-refined.zsh-theme"; then
+            if [ -s "$ZSH_CUSTOM/themes/my-refined.zsh-theme" ]; then
+                print_success "Custom theme downloaded and configured"
+            else
+                print_error "Downloaded my-refined.zsh-theme is empty"
+                exit 1
+            fi
+        else
+            print_error "Failed to download my-refined.zsh-theme"
+            exit 1
+        fi
+    fi
 }
 
 # Change default shell to Zsh
