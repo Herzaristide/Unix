@@ -15,7 +15,7 @@ plugins=(
 )
 
 # Load Oh My Zsh
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
 # User configuration
 
@@ -23,6 +23,6 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='vim'
 
 # Load custom aliases
-if [ -f $ZSH_CUSTOM/my_aliases.zsh ]; then
-    source $ZSH_CUSTOM/my_aliases.zsh
+if [ -f "$ZSH_CUSTOM/my_aliases.zsh" ]; then
+    source "$ZSH_CUSTOM/my_aliases.zsh"
 fi

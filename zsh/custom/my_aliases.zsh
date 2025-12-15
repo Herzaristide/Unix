@@ -6,13 +6,13 @@ alias ll='ls -lah'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Git aliases (additional to Oh My Zsh git plugin)
-alias gst='git status'
-alias gaa='git add .'
-alias gcm='git commit -m'
-alias gp='git push'
-alias gl='git pull'
+# Git aliases
+# Note: Oh My Zsh git plugin already provides: gst, gaa, gcm, gp, gl
+# These are additional or alternative git aliases
 alias glog='git log --oneline --graph --decorate'
+alias gbr='git branch'
+alias gco='git checkout'
+alias grm='git rm'
 
 # Navigation aliases
 alias ..='cd ..'
@@ -23,9 +23,9 @@ alias ....='cd ../../..'
 # Uncomment the appropriate section for your operating system:
 
 # For Ubuntu/Debian:
-alias update='sudo apt update && sudo apt upgrade -y'
-alias install='sudo apt install'
-alias remove='sudo apt remove'
+# alias update='sudo apt update && sudo apt upgrade -y'
+# alias install='sudo apt install'
+# alias remove='sudo apt remove'
 
 # For Fedora/RHEL/CentOS:
 # alias update='sudo dnf upgrade -y'
