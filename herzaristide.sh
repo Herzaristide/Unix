@@ -171,12 +171,18 @@ install_oh_my_zsh() {
     print_info "Installing Oh My Zsh..."
     
     # Install Oh My Zsh without running zsh at the end
-    RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    
-    if [ -d "$HOME/.oh-my-zsh" ]; then
-        print_success "Oh My Zsh installed successfully"
+    # Note: This downloads and executes the official Oh My Zsh installation script
+    # For enhanced security, you can review the script at:
+    # https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    if RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; then
+        if [ -d "$HOME/.oh-my-zsh" ]; then
+            print_success "Oh My Zsh installed successfully"
+        else
+            print_error "Oh My Zsh installation failed - directory not created"
+            exit 1
+        fi
     else
-        print_error "Oh My Zsh installation failed"
+        print_error "Oh My Zsh installation script failed"
         exit 1
     fi
 }
@@ -227,8 +233,17 @@ configure_zsh() {
     else
         # If running via curl, download the config files
         print_info "Downloading .zshrc configuration..."
-        curl -fsSL "https://raw.githubusercontent.com/Herzaristide/Unix/main/zsh/.zshrc" -o "$HOME/.zshrc"
-        print_success ".zshrc downloaded and configured"
+        if curl -fsSL "https://raw.githubusercontent.com/Herzaristide/Unix/main/zsh/.zshrc" -o "$HOME/.zshrc"; then
+            if [ -s "$HOME/.zshrc" ]; then
+                print_success ".zshrc downloaded and configured"
+            else
+                print_error "Downloaded .zshrc is empty"
+                exit 1
+            fi
+        else
+            print_error "Failed to download .zshrc"
+            exit 1
+        fi
     fi
     
     # Copy custom aliases
@@ -239,8 +254,17 @@ configure_zsh() {
     else
         # If running via curl, download the aliases file
         print_info "Downloading custom aliases..."
-        curl -fsSL "https://raw.githubusercontent.com/Herzaristide/Unix/main/zsh/custom/my_aliases.zsh" -o "$ZSH_CUSTOM/my_aliases.zsh"
-        print_success "Custom aliases downloaded and configured"
+        if curl -fsSL "https://raw.githubusercontent.com/Herzaristide/Unix/main/zsh/custom/my_aliases.zsh" -o "$ZSH_CUSTOM/my_aliases.zsh"; then
+            if [ -s "$ZSH_CUSTOM/my_aliases.zsh" ]; then
+                print_success "Custom aliases downloaded and configured"
+            else
+                print_error "Downloaded my_aliases.zsh is empty"
+                exit 1
+            fi
+        else
+            print_error "Failed to download my_aliases.zsh"
+            exit 1
+        fi
     fi
 }
 
