@@ -19,7 +19,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# System shortcuts
+# System shortcuts (Ubuntu/Debian-specific - adjust for your OS)
+# For Fedora/RHEL/CentOS: replace 'apt' with 'dnf' or 'yum'
+# For Arch/Manjaro: replace 'apt' with 'pacman'
+# For macOS: replace with 'brew'
 alias update='sudo apt update && sudo apt upgrade -y'
 alias install='sudo apt install'
 alias remove='sudo apt remove'

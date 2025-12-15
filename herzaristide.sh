@@ -258,17 +258,23 @@ change_shell() {
     local zsh_path=$(which zsh)
     
     # Check if zsh is in /etc/shells
-    if ! grep -q "$zsh_path" /etc/shells 2>/dev/null; then
-        print_info "Adding Zsh to /etc/shells..."
-        echo "$zsh_path" | sudo tee -a /etc/shells > /dev/null
+    if [ -f /etc/shells ]; then
+        if ! grep -q "$zsh_path" /etc/shells; then
+            print_info "Adding Zsh to /etc/shells..."
+            echo "$zsh_path" | sudo tee -a /etc/shells > /dev/null
+        fi
     fi
     
     print_info "Changing default shell to Zsh..."
-    if chsh -s "$zsh_path" 2>/dev/null; then
+    local chsh_error
+    if chsh_error=$(chsh -s "$zsh_path" 2>&1); then
         print_success "Default shell changed to Zsh"
         print_warning "Please log out and log back in for the change to take effect"
     else
         print_warning "Could not change default shell automatically"
+        if [[ -n "$chsh_error" ]]; then
+            print_info "Error: $chsh_error"
+        fi
         print_info "You can change it manually by running: chsh -s $(which zsh)"
     fi
 }
