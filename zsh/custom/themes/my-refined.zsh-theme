@@ -69,25 +69,23 @@ python_version() {
 # Display Podman containers and pods counts (only if podman exists)
 podman_info() {
     command -v podman >/dev/null 2>&1 || return
-    # count all containers (running + stopped) and pods
+    # count all containers (running + stopped)
     local containers=0
-    local pods=0
     # Use fallback to avoid errors if podman not available or fails
     containers=$(podman ps -q 2>/dev/null | wc -l | tr -d ' ')
     totals=$(podman ps -a -q 2>/dev/null | wc -l | tr -d ' ')
-    pods=$(podman pod ps -q 2>/dev/null | wc -l | tr -d ' ')
-    # Only show when there is at least one container or pod
+    # Only show when there is at least one container
     echo "%F{cyan}${containers}/${totals}%f"
 }
 
 docker_info() {
     command -v docker >/dev/null 2>&1 || return
-    # count all containers (running + stopped) and pods
+    # count all containers (running + stopped)
     local containersd=0
     # Use fallback to avoid errors if docker not available or fails
     containersd=$(docker ps -q 2>/dev/null | wc -l | tr -d ' ')
     totalsd=$(docker ps -a -q 2>/dev/null | wc -l | tr -d ' ')
-    # Only show when there is at least one container or pod
+    # Only show when there is at least one container
     echo "%F{cyan}${containersd}/${totalsd}%f"
 }
 
@@ -121,7 +119,6 @@ PROMPT='%F{yellow}${(C)${PWD:t}}%f$(repo_information)[$(python_version)]# '
 RPROMPT=""
 
 # ------------------------------------------------------------------------------
-#ls
 # List of vcs_info format strings:
 #
 # %b => current branch
