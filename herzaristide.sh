@@ -196,8 +196,12 @@ install_zsh_plugins() {
     # Install zsh-autosuggestions
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
         print_info "Installing zsh-autosuggestions..."
-        git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
-        print_success "zsh-autosuggestions installed"
+        if git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"; then
+            print_success "zsh-autosuggestions installed"
+        else
+            print_error "Failed to install zsh-autosuggestions"
+            exit 1
+        fi
     else
         print_success "zsh-autosuggestions already installed"
     fi
@@ -205,8 +209,12 @@ install_zsh_plugins() {
     # Install zsh-syntax-highlighting
     if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
         print_info "Installing zsh-syntax-highlighting..."
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
-        print_success "zsh-syntax-highlighting installed"
+        if git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"; then
+            print_success "zsh-syntax-highlighting installed"
+        else
+            print_error "Failed to install zsh-syntax-highlighting"
+            exit 1
+        fi
     else
         print_success "zsh-syntax-highlighting already installed"
     fi
@@ -280,6 +288,12 @@ change_shell() {
     fi
     
     local zsh_path=$(command -v zsh)
+    
+    # Validate zsh_path is not empty
+    if [ -z "$zsh_path" ]; then
+        print_error "Could not find Zsh installation path"
+        return 1
+    fi
     
     # Check if zsh is in /etc/shells
     if [ -f /etc/shells ]; then
