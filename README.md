@@ -46,6 +46,7 @@ The script will install and configure:
 5. **Custom Configuration**:
    - Pre-configured `.zshrc` file
    - Custom aliases for productivity
+   - Custom `my-refined` theme - A minimal and beautiful theme showing git branch, Python version, and more
 
 ## Repository Structure
 
@@ -55,7 +56,9 @@ Unix/
 └── zsh/                      # Configuration files for Zsh/Oh My Zsh
     ├── .zshrc                # Primary Zsh configuration file
     └── custom/               # Directory for custom OMZ themes/plugins
-        └── my_aliases.zsh    # Custom aliases
+        ├── my_aliases.zsh    # Custom aliases
+        └── themes/           # Custom themes directory
+            └── my-refined.zsh-theme  # Custom minimal theme
 ```
 
 ## Customization
