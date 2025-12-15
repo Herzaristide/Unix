@@ -24,5 +24,5 @@ export EDITOR='vim'
 
 # Load custom aliases
 if [ -f "$ZSH_CUSTOM/my_aliases.zsh" ]; then
-    source "$ZSH_CUSTOM/my_aliases.zsh"
+    source "$ZSH_CUSTOM/my_aliases.zsh" 2>/dev/null || true
 fi

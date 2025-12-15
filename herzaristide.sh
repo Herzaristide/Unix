@@ -290,14 +290,17 @@ change_shell() {
     fi
     
     print_info "Changing default shell to Zsh..."
-    local chsh_error
-    if chsh_error=$(chsh -s "$zsh_path" 2>&1); then
+    local chsh_output
+    chsh_output=$(chsh -s "$zsh_path" 2>&1)
+    local chsh_status=$?
+    
+    if [ $chsh_status -eq 0 ]; then
         print_success "Default shell changed to Zsh"
         print_warning "Please log out and log back in for the change to take effect"
     else
         print_warning "Could not change default shell automatically"
-        if [[ -n "$chsh_error" ]]; then
-            print_info "Error: $chsh_error"
+        if [[ -n "$chsh_output" ]]; then
+            print_info "Error: $chsh_output"
         fi
         print_info "You can change it manually by running: chsh -s \"$(command -v zsh)\""
     fi
