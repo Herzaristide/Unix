@@ -86,16 +86,29 @@ plugins=(
 
 ## Included Aliases
 
-The script includes useful aliases such as:
+The setup includes useful aliases from multiple sources:
 
-- `ll` - Detailed list view
+**From Oh My Zsh Git Plugin** (automatically active):
 - `gst` - Git status
 - `gaa` - Git add all
 - `gcm` - Git commit with message
-- `update` - System update (apt)
-- And many more!
+- `gp` - Git push
+- `gl` - Git pull
+- And many more! (see [Oh My Zsh git plugin](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git))
 
-See `zsh/custom/my_aliases.zsh` for the complete list.
+**Custom Aliases** (in `zsh/custom/my_aliases.zsh`):
+- `ll` - Detailed list view
+- `glog` - Pretty git log
+- `..` / `...` / `....` - Navigate up directories
+- `c` - Clear terminal
+- `h` - View history
+
+**OS-Specific Aliases** (commented out by default - uncomment for your OS):
+- `update` - System update command
+- `install` - Package installation command
+- `remove` - Package removal command
+
+See `zsh/custom/my_aliases.zsh` for the complete list and customization options.
 
 ## Requirements
 

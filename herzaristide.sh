@@ -279,7 +279,7 @@ change_shell() {
         return 0
     fi
     
-    local zsh_path=$(which zsh)
+    local zsh_path=$(command -v zsh)
     
     # Check if zsh is in /etc/shells
     if [ -f /etc/shells ]; then
@@ -299,7 +299,7 @@ change_shell() {
         if [[ -n "$chsh_error" ]]; then
             print_info "Error: $chsh_error"
         fi
-        print_info "You can change it manually by running: chsh -s \"$(which zsh)\""
+        print_info "You can change it manually by running: chsh -s \"$(command -v zsh)\""
     fi
 }
 
